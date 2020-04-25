@@ -27,21 +27,6 @@ function draw() {
                 celestialObj(color(200, 200, 200), 20); //MOON
             pop();
         pop();
-
-    //console.log("speed: " + speed);
-    // rotate(radians(speed % 360)); //Rotate the axis to draw the earth revolving around the sun
-    //     push();
-    //         translate(-200, 0); //centre of the earth
-    //         rotate(radians(speed % 360)); //Rotate the axis to draw the earth rotation
-    //         celestialObj(color(0, 0, 200), 80); //EARTH
-    //         //rotate(radians(-speed * 4 % 360))   //rotate the axis to draw
-    //         push()
-    //             translate(-100, 0); //centre of the moon
-    //
-    //             celestialObj(color(0, 0, 200), 20); //MOON
-    //         pop()
-    //     pop()
-
     pop();
 }
 
