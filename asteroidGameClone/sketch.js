@@ -26,7 +26,7 @@ function draw() {
 
   spaceship.run();
   asteroids.run();
-
+  asteroids.calcGravity(earthLoc);
   drawEarth();
 
   checkCollisions(spaceship, asteroids); // function that checks collision between various elements
@@ -50,24 +50,50 @@ function checkCollisions(spaceship, asteroids){
 
     //spaceship-2-asteroid collisions
     //YOUR CODE HERE (2-3 lines approx)
+    for(let counter = 0; counter < asteroids.locations.length; counter++){
+      if (isInside(spaceship.location, spaceship.size, asteroids.locations[counter], asteroids.diams[counter])) {
+        gameOver();
+        return;
+      }
+
+    }
 
     //asteroid-2-earth collisions
     //YOUR CODE HERE (2-3 lines approx)
-
+  for(let counter = 0; counter < asteroids.locations.length; counter++){
+    if(isInside(earthLoc, earthSize.x, asteroids.locations[counter], asteroids.diams[counter])) {
+      gameOver();
+      return;
+    }
+  }
     //spaceship-2-earth
     //YOUR CODE HERE (1-2 lines approx)
+    if(isInside(earthLoc, earthSize.x, spaceship.location, spaceship.size)) {
+      gameOver();
+      return;
+    }
 
     //spaceship-2-atmosphere
     //YOUR CODE HERE (1-2 lines approx)
+    if(isInside(atmosphereLoc, atmosphereSize.x, spaceship.location, spaceship.size))
+      spaceship.setNearEarth();
 
     //bullet collisions
     //YOUR CODE HERE (3-4 lines approx)
+    for(let bullet of spaceship.bulletSys.bullets){
+      for(let counter = 0; counter < asteroids.locations.length; counter ++){
+        if(isInside(bullet, spaceship.bulletSys.diam, asteroids.locations[counter], asteroids.diams[counter])){
+          asteroids.destroy(counter);
+        }
+      }
+    }
 }
 
 //////////////////////////////////////////////////
 //helper function checking if there's collision between object A and object B
 function isInside(locA, sizeA, locB, sizeB){
     // YOUR CODE HERE (3-5 lines approx)
+  return dist(locA.x, locA.y, locB.x, locB.y) < (sizeA + sizeB) / 2;
 }
 
 //////////////////////////////////////////////////
