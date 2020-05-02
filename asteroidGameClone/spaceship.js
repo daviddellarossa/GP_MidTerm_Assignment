@@ -6,7 +6,8 @@ class Spaceship {
     this.acceleration = new createVector(0, 0);
     this.maxVelocity = 5;
     this.bulletSys = new BulletSystem();
-    this.size = 50;
+    this.size = new createVector(61, 72);
+    this.img = spaceshipImg;
   }
 
   run(){
@@ -18,10 +19,14 @@ class Spaceship {
   }
 
   draw(){
-    fill(125);
-    triangle(this.location.x - this.size/2, this.location.y + this.size/2,
-        this.location.x + this.size/2, this.location.y + this.size/2,
-        this.location.x, this.location.y - this.size/2);
+      let idx = Math.floor(frameCount/2)%4;
+      image(this.img[idx],this.location.x - this.size.x/2, this.location.y - this.size.y/2, this.size.x, this.size.y);
+
+
+    // fill(125);
+    // triangle(this.location.x - this.size/2, this.location.y + this.size/2,
+    //     this.location.x + this.size/2, this.location.y + this.size/2,
+    //     this.location.x, this.location.y - this.size/2);
   }
 
   move(){
@@ -55,7 +60,7 @@ class Spaceship {
   }
 
   fire(){
-    this.bulletSys.fire(this.location.x, this.location.y);
+    this.bulletSys.fire(this.location.x, this.location.y - this.size.y/2);
   }
 
   edges(){
