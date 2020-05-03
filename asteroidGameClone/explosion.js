@@ -22,7 +22,7 @@ class Explosion{
 
     draw(){
         if(this.isReadyForDistruction) return;
-
+        //console.log(`Index row: ${this.imageIndex.x}; Index col: ${this.imageIndex.y}` );
         image(
             this.img,
             this.location.x - this.imgSize.x / 2,

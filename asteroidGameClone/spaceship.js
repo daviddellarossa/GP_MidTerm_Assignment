@@ -8,6 +8,7 @@ class Spaceship {
     this.bulletSys = new BulletSystem();
     this.size = new createVector(61, 72);
     this.img = spaceshipImg;
+    this.isVisible = true;
   }
 
   run(){
@@ -19,14 +20,10 @@ class Spaceship {
   }
 
   draw(){
+      if(!this.isVisible) return;
       let idx = Math.floor(frameCount/2)%4;
       image(this.img[idx],this.location.x - this.size.x/2, this.location.y - this.size.y/2, this.size.x, this.size.y);
 
-
-    // fill(125);
-    // triangle(this.location.x - this.size/2, this.location.y + this.size/2,
-    //     this.location.x + this.size/2, this.location.y + this.size/2,
-    //     this.location.x, this.location.y - this.size/2);
   }
 
   move(){

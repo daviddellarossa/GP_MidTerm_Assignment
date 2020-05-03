@@ -16,6 +16,8 @@ var spaceshipImg = [];
 var bulletImg = [];
 var asteroidImg = [];
 var explosionImg = []
+var earthImg;
+var isGameOver;
 
 function preload(){
   spaceshipImg[0] = loadImage('assets/spaceship/Flea_spaceship_0.png');
@@ -43,103 +45,103 @@ function preload(){
   explosionImg[2] = loadImage('assets/explosions/explosion_2.png');
   explosionImg[3] = loadImage('assets/explosions/explosion_3.png');
 
+  earthImg = loadImage('assets/planet/earth.png');
+
 }
 
 
 //////////////////////////////////////////////////
 function setup() {
   createCanvas(1200,800);
-
-  // for(let img of spaceshipImg)
-  //   img.loadPixels();
-
+  isGameOver = false;
   spaceship = new Spaceship();
   asteroids = new AsteroidSystem();
+  explosionSystem = new ExplosionSystem();
 
   //location and size of earth and its atmosphere
   atmosphereLoc = new createVector(width/2, height*2.9);
-  atmosphereSize = new createVector(width*3, width*3);
+  atmosphereSize = new createVector(width*6, width*3);
   earthLoc = new createVector(width/2, height*3.1);
-  earthSize = new createVector(width*3, width*3);
-  explosionSystem = new ExplosionSystem();
+  earthSize = new createVector(width*6, width*3);
+
+
 }
 
 //////////////////////////////////////////////////
 function draw() {
   background(0);
   sky();
-
-  spaceship.run();
-  asteroids.run();
-  asteroids.calcGravity(earthLoc);
-  explosionSystem.run();
   drawEarth();
+  explosionSystem.run();
 
-  checkCollisions(spaceship, asteroids); // function that checks collision between various elements
+  if(!isGameOver){
+    spaceship.run();
+    asteroids.run();
+    asteroids.calcGravity(earthLoc);
+    checkCollisions(spaceship, asteroids); // function that checks collision between various elements
+  }else{
+    gameOver();
+  }
+
 }
 
 //////////////////////////////////////////////////
 //draws earth and atmosphere
 function drawEarth(){
+  //return;
   noStroke();
   //draw atmosphere
   fill(0,0,255, 50);
   ellipse(atmosphereLoc.x, atmosphereLoc.y, atmosphereSize.x,  atmosphereSize.y);
   //draw earth
-  fill(100,255);
-  ellipse(earthLoc.x, earthLoc.y, earthSize.x, earthSize.y);
+  image(earthImg,0, height * 0.84, width, height * 0.2);
 }
 
 //////////////////////////////////////////////////
 //checks collisions between all types of bodies
 function checkCollisions(spaceship, asteroids){
-
     //spaceship-2-asteroid collisions
     //YOUR CODE HERE (2-3 lines approx)
   for(let asteroid of asteroids.asteroids){
     if (isInside(spaceship.location, spaceship.size.x, asteroid.location, asteroid.size.y)) {
-      gameOver();
+      asteroids.destroy(asteroid);
+      spaceship.isVisible = false;
+      explosionSystem.spawn(spaceship.location);
+      isGameOver = true;
+      // gameOver();
       return;
     }
   }
-    // for(let counter = 0; counter < asteroids.asteroids.length; counter++){
-    //   if (isInside(spaceship.location, spaceship.size.x, asteroids.locations[counter], asteroids.diams[counter])) {
-    //     gameOver();
-    //     return;
-    //   }
-    // }
 
     //asteroid-2-earth collisions
     //YOUR CODE HERE (2-3 lines approx)
   for(let asteroid of asteroids.asteroids){
-    if(isInside(earthLoc, earthSize.x, asteroid.location, asteroid.size.y)) {
-      gameOver();
+    if(isInside(earthLoc, earthSize.y, asteroid.location, asteroid.size.y)) {
+      spaceship.isVisible = false;
+      explosionSystem.spawn(asteroid.location);
+      isGameOver = true;
+     // gameOver();
       return;
     }
   }
 
-
-  // for(let counter = 0; counter < asteroids.locations.length; counter++){
-  //   if(isInside(earthLoc, earthSize.x, asteroids.locations[counter], asteroids.diams[counter])) {
-  //     gameOver();
-  //     return;
-  //   }
-  // }
     //spaceship-2-earth
     //YOUR CODE HERE (1-2 lines approx)
-    if(isInside(earthLoc, earthSize.x, spaceship.location, spaceship.size.x)) {
-      gameOver();
+    if(isInside(earthLoc, earthSize.y, spaceship.location, spaceship.size.x)) {
+      spaceship.isVisible = false;
+      explosionSystem.spawn(spaceship.location);
+      isGameOver = true;
+      // gameOver();
       return;
     }
 
     //spaceship-2-atmosphere
     //YOUR CODE HERE (1-2 lines approx)
-    if(isInside(atmosphereLoc, atmosphereSize.x, spaceship.location, spaceship.size.x))
+    if(isInside(atmosphereLoc, atmosphereSize.y, spaceship.location, spaceship.size.x))
       spaceship.setNearEarth();
 
     //bullet collisions
     //YOUR CODE HERE (3-4 lines approx)
-
   for(let bullet of spaceship.bulletSys.bullets){
     for(let asteroid of asteroids.asteroids){
       if(isInside(bullet.location, bullet.size.x, asteroid.location, asteroid.size.y)){
@@ -149,15 +151,6 @@ function checkCollisions(spaceship, asteroids){
       }
     }
   }
-
-    // for(let bullet of spaceship.bulletSys.bullets){
-    //   for(let counter = 0; counter < asteroids.locations.length; counter ++){
-    //     if(isInside(bullet.location, bullet.size.x, asteroids.locations[counter], asteroids.diams[counter])){
-    //       asteroids.destroy(counter);
-    //       spaceship.bulletSys.destroy(bullet);
-    //     }
-    //   }
-    // }
 }
 
 //////////////////////////////////////////////////
@@ -169,6 +162,10 @@ function isInside(locA, sizeA, locB, sizeB){
 
 //////////////////////////////////////////////////
 function keyPressed(){
+  if(isGameOver) {
+    startGame();
+    return;
+  }
   if (keyIsPressed && keyCode === 32){ // if spacebar is pressed, fire!
     spaceship.fire();
   }
@@ -180,8 +177,18 @@ function gameOver(){
   fill(255);
   textSize(80);
   textAlign(CENTER);
-  text("GAME OVER", width/2, height/2)
-  noLoop();
+  text("GAME OVER", width/2, height * 0.4)
+  textSize(40);
+  text("Press a key to continue", width/2, height * 0.5);
+  //noLoop(); // I need the loop to carry on to manage explosions' trail when game is over.
+}
+
+//////////////////////////////////////////////////
+/** Initialize the game */
+function startGame(){
+  isGameOver = false;
+  spaceship = new Spaceship();
+  asteroids = new AsteroidSystem();
 }
 
 //////////////////////////////////////////////////

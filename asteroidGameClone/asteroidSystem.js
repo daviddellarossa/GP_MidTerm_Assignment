@@ -3,11 +3,6 @@ class AsteroidSystem {
   //creates arrays to store each asteroid's data
   constructor(){
     this.asteroids = [];
-    // this.locations = [];
-    // this.velocities = [];
-    // this.accelerations = [];
-    // this.diams = [];
-    //this.img = asteroidImg;
   }
 
   run(){
@@ -26,11 +21,6 @@ class AsteroidSystem {
           Math.floor(random(9))
         )
       );
-
-      // this.accelerations.push(new createVector(0,random(0.1,1)));
-      // this.velocities.push(new createVector(0, 0));
-      // this.locations.push(new createVector(random(width), 0));
-      // this.diams.push(random(30,50));
     }
   }
 
@@ -39,20 +29,12 @@ class AsteroidSystem {
     for(let asteroid of this.asteroids){
       asteroid.move();
     }
-    // for (var i=0; i<this.locations.length; i++){
-    //   this.velocities[i].add(this.accelerations[i]);
-    //   this.locations[i].add(this.velocities[i]);
-    //   this.accelerations[i].mult(0);
-    // }
   }
 
   applyForce(f){
     for(let asteroid of this.asteroids){
       asteroid.applyForce(f);
     }
-    // for (var i=0; i<this.locations.length; i++){
-    //   this.accelerations[i].add(f);
-    // }
   }
 
   //draws all asteroids
@@ -60,34 +42,16 @@ class AsteroidSystem {
     for(let asteroid of this.asteroids){
       asteroid.draw();
     }
-    // noStroke();
-    // fill(200);
-    // for (var i=0; i<this.locations.length; i++){
-    //   ellipse(this.locations[i].x, this.locations[i].y, this.diams[i], this.diams[i]);
-    // }
   }
 
   //function that calculates effect of gravity on each asteroid and accelerates it
   calcGravity(centerOfMass){
     for(let asteroid of this.asteroids){
-
+      asteroid.calcGravity(centerOfMass);
     }
-
-    // for (var i=0; i<this.locations.length; i++){
-    //   var gravity = p5.Vector.sub(centerOfMass, this.locations[i]);
-    //   gravity.normalize();
-    //   gravity.mult(.001);
-    //   this.applyForce(gravity);
-    // }
   }
 
-  //destroys all data associated with each asteroid
-  // destroy(index){
-  //   this.locations.splice(index,1);
-  //   this.velocities.splice(index,1);
-  //   this.accelerations.splice(index,1);
-  //   this.diams.splice(index,1);
-  // }
+  /** destroys the asteroid */
   destroy(asteroid){
     for(let counter = this.asteroids.length - 1; counter >= 0; counter--){
       if(this.asteroids[counter] === asteroid){
