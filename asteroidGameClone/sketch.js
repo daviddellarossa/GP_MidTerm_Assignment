@@ -1,3 +1,8 @@
+//https://opengameart.org/content/space-ship-construction-kit
+//https://opengameart.org/content/space-game-art-pack-extended
+//https://opengameart.org/content/2d-explosion-animations-2-frame-by-frame
+//https://evolutionnews.org/wp-content/uploads/2020/04/Rare-Earth-2.jpg
+
 var spaceship;
 var asteroids;
 var atmosphereLoc;
@@ -5,10 +10,12 @@ var atmosphereSize;
 var earthLoc;
 var earthSize;
 var starLocs = [];
+var explosionSystem;
 
 var spaceshipImg = [];
 var bulletImg = [];
 var asteroidImg = [];
+var explosionImg = []
 
 function preload(){
   spaceshipImg[0] = loadImage('assets/spaceship/Flea_spaceship_0.png');
@@ -31,6 +38,11 @@ function preload(){
   asteroidImg[7] = loadImage('assets/asteroids/asteroid_7.png');
   asteroidImg[8] = loadImage('assets/asteroids/asteroid_8.png');
 
+  explosionImg[0] = loadImage('assets/explosions/explosion_0.png');
+  explosionImg[1] = loadImage('assets/explosions/explosion_1.png');
+  explosionImg[2] = loadImage('assets/explosions/explosion_2.png');
+  explosionImg[3] = loadImage('assets/explosions/explosion_3.png');
+
 }
 
 
@@ -49,6 +61,7 @@ function setup() {
   atmosphereSize = new createVector(width*3, width*3);
   earthLoc = new createVector(width/2, height*3.1);
   earthSize = new createVector(width*3, width*3);
+  explosionSystem = new ExplosionSystem();
 }
 
 //////////////////////////////////////////////////
@@ -59,6 +72,7 @@ function draw() {
   spaceship.run();
   asteroids.run();
   asteroids.calcGravity(earthLoc);
+  explosionSystem.run();
   drawEarth();
 
   checkCollisions(spaceship, asteroids); // function that checks collision between various elements
@@ -131,6 +145,7 @@ function checkCollisions(spaceship, asteroids){
       if(isInside(bullet.location, bullet.size.x, asteroid.location, asteroid.size.y)){
         asteroids.destroy(asteroid);
         spaceship.bulletSys.destroy(bullet);
+        explosionSystem.spawn(asteroid.location);
       }
     }
   }
