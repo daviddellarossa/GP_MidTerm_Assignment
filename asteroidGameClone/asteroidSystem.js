@@ -13,11 +13,11 @@ class AsteroidSystem {
 
   // spawns asteroid at random intervals
   spawn(){
-    if (random(1)<0.01){
+    if (random(1)<0.01 * difficulty){
       this.asteroids.push(new Asteroid(
           createVector(random(width), 0),
           createVector(0, 0),
-          createVector(0,random(0.1,1)),
+          createVector(0,random(0.1 * difficulty, difficulty)),
           Math.floor(random(9))
         )
       );

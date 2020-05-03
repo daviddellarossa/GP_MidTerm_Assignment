@@ -18,6 +18,9 @@ var asteroidImg = [];
 var explosionImg = []
 var earthImg;
 var isGameOver;
+//var isGameRunning;
+var score;
+var difficulty;
 
 function preload(){
   spaceshipImg[0] = loadImage('assets/spaceship/Flea_spaceship_0.png');
@@ -54,6 +57,9 @@ function preload(){
 function setup() {
   createCanvas(1200,800);
   isGameOver = false;
+  score = 0;
+  difficulty = 1;
+
   spaceship = new Spaceship();
   asteroids = new AsteroidSystem();
   explosionSystem = new ExplosionSystem();
@@ -63,7 +69,6 @@ function setup() {
   atmosphereSize = new createVector(width*6, width*3);
   earthLoc = new createVector(width/2, height*3.1);
   earthSize = new createVector(width*6, width*3);
-
 
 }
 
@@ -82,7 +87,22 @@ function draw() {
   }else{
     gameOver();
   }
+  drawScore();
+}
 
+function increaseScore(){
+  score++;
+  if(score % 20 === 0)
+    difficulty *= 1.2;
+}
+
+function drawScore(){
+  fill(0, 0, 255, 50);
+  rect(width - 220, 0, width - 20, 48);
+  fill(255);
+  textSize(20);
+  textAlign(LEFT);
+  text(`Score: ${score}`, width - 200, 32);
 }
 
 //////////////////////////////////////////////////
@@ -108,7 +128,6 @@ function checkCollisions(spaceship, asteroids){
       spaceship.isVisible = false;
       explosionSystem.spawn(spaceship.location);
       isGameOver = true;
-      // gameOver();
       return;
     }
   }
@@ -120,7 +139,6 @@ function checkCollisions(spaceship, asteroids){
       spaceship.isVisible = false;
       explosionSystem.spawn(asteroid.location);
       isGameOver = true;
-     // gameOver();
       return;
     }
   }
@@ -131,7 +149,6 @@ function checkCollisions(spaceship, asteroids){
       spaceship.isVisible = false;
       explosionSystem.spawn(spaceship.location);
       isGameOver = true;
-      // gameOver();
       return;
     }
 
@@ -145,6 +162,7 @@ function checkCollisions(spaceship, asteroids){
   for(let bullet of spaceship.bulletSys.bullets){
     for(let asteroid of asteroids.asteroids){
       if(isInside(bullet.location, bullet.size.x, asteroid.location, asteroid.size.y)){
+        increaseScore();
         asteroids.destroy(asteroid);
         spaceship.bulletSys.destroy(bullet);
         explosionSystem.spawn(asteroid.location);
@@ -187,6 +205,8 @@ function gameOver(){
 /** Initialize the game */
 function startGame(){
   isGameOver = false;
+  score = 0;
+  difficulty = 1;
   spaceship = new Spaceship();
   asteroids = new AsteroidSystem();
 }
