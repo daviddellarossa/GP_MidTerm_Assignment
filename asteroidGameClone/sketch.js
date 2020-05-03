@@ -18,9 +18,9 @@ var asteroidImg = [];
 var explosionImg = []
 var earthImg;
 var isGameOver;
-//var isGameRunning;
+
 var score;
-var difficulty;
+var difficulty; //used to calculate acceleration and timing of asteroids
 
 function preload(){
   spaceshipImg[0] = loadImage('assets/spaceship/Flea_spaceship_0.png');
@@ -92,6 +92,7 @@ function draw() {
 
 function increaseScore(){
   score++;
+  //every 20 points, increase the difficulty by a factor of 1.2
   if(score % 20 === 0)
     difficulty *= 1.2;
 }
@@ -108,7 +109,6 @@ function drawScore(){
 //////////////////////////////////////////////////
 //draws earth and atmosphere
 function drawEarth(){
-  //return;
   noStroke();
   //draw atmosphere
   fill(0,0,255, 50);
