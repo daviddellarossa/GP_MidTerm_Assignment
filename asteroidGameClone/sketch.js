@@ -20,7 +20,7 @@ var earthImg;
 var isGameOver;
 
 var score;
-var difficulty; //used to calculate acceleration and timing of asteroids
+var difficulty; //used to calculate acceleration and spawning of asteroids. Increased in increaseScore function.
 
 function preload(){
   spaceshipImg[0] = loadImage('assets/spaceship/Flea_spaceship_0.png');
@@ -58,7 +58,7 @@ function setup() {
   createCanvas(1200,800);
   isGameOver = false;
   score = 0;
-  difficulty = 1;
+  difficulty = 1; //initial difficulty. This gets increased automatically as the game progresses.
 
   spaceship = new Spaceship();
   asteroids = new AsteroidSystem();
@@ -94,7 +94,7 @@ function increaseScore(){
   score++;
   //every 20 points, increase the difficulty by a factor of 1.2
   if(score % 20 === 0)
-    difficulty *= 1.2;
+    difficulty *= 1.2; // increase difficulty
 }
 
 function drawScore(){
