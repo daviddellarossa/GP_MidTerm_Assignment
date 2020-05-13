@@ -45,6 +45,7 @@ function drawBirds(){
   //your code here
   for(let i = 0; i < birds.length; i++){
     if(isOffScreen(birds[i])){
+      World.remove(engine.world, birds[i]);
       birds.splice(i, 1);
       i--;
       continue;
@@ -58,12 +59,33 @@ function drawBirds(){
 //creates a tower of boxes
 function setupTower(){
   //you code here
+  let composite = Composites.stack(
+      600,
+      100,
+      3,
+      6,
+      0,
+      0,
+      (x, y) => {
+        return Bodies.rectangle(x, y, 80, 80);
+      });
+  World.add(engine.world, [composite]);
+
+  for(let box of Composite.allBodies(composite)){
+    boxes.push(box);
+    colors.push(color(random(0, 50), random(128, 255), random(0, 50)));
+  }
 }
 ////////////////////////////////////////////////////////////////
 //draws tower of boxes
 function drawTower(){
   push();
   //your code here
+
+  for(let i = 0; i < boxes.length; i++){
+    fill(colors[i]);
+    drawVertices(boxes[i].vertices);
+  }
   pop();
 }
 ////////////////////////////////////////////////////////////////

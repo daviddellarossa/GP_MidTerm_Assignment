@@ -9,6 +9,8 @@ var Body = Matter.Body;
 var Constraint = Matter.Constraint;
 var Mouse = Matter.Mouse;
 var MouseConstraint = Matter.MouseConstraint;
+var Composites = Matter.Composites;
+var Composite = Matter.Composite;
 
 var engine;
 var propeller;
@@ -26,7 +28,7 @@ function setup() {
 
   engine = Engine.create();  // create an engine
 
-  rectMode(CENTER);
+  // rectMode(CENTER);
 
   setupGround();
 
@@ -53,6 +55,7 @@ function draw() {
   drawBirds();
 
   drawSlingshot();
+  circle(300, 580, 2);
 }
 ////////////////////////////////////////////////////////////
 //use arrow keys to control propeller
