@@ -43,6 +43,7 @@ function setupBird(){
 function drawBirds(){
   push();
   //your code here
+  fill(255, 0,0);
   for(let i = 0; i < birds.length; i++){
     if(isOffScreen(birds[i])){
       World.remove(engine.world, birds[i]);
@@ -91,10 +92,10 @@ function drawTower(){
 ////////////////////////////////////////////////////////////////
 function setupSlingshot(){
 //your code here
-  slingshotBird = Bodies.circle(100, 100, 20, {friction:0, restitution:0.95});
+  slingshotBird = Bodies.circle(200, 200, 20, {friction:0, restitution:0.95});
   Body.setMass(slingshotBird, 10*slingshotBird.mass);
   World.add(engine.world, [slingshotBird]);
-  birds.push(slingshotBird);
+  //birds.push(slingshotBird);
 
   slingshotConstraint = Constraint.create({
   pointA: {x:200, y:200},
@@ -109,9 +110,11 @@ function setupSlingshot(){
 function drawSlingshot(){
   push();
   // your code here
-  //drawVertices(slingshotConstraint);
-  //line(slingshotConstraint.pointA)
-  //drawVertices(slingshotBird);
+  fill(255, 150, 0);
+  drawVertices(slingshotBird.vertices);
+  drawConstraint(slingshotConstraint)
+
+
   pop();
 }
 /////////////////////////////////////////////////////////////////
