@@ -10,11 +10,11 @@ class Propeller {
         this.body = Bodies.rectangle(location.x, location.y, size.width,size.height, {isStatic:true, angle:angle});;
     }
 
-    draw = function(){
+    draw(){
         push();
 
-        translate(propeller.body.position.x, propeller.body.position.y);
-        rotate(propeller.body.angle);
+        translate(this.body.position.x, this.body.position.y);
+        rotate(this.body.angle);
 
         image(
             this.image,

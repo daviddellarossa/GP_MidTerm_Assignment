@@ -72,27 +72,30 @@ function setupTower(){
       0,
       0,
       (x, y) => {
-        return Bodies.rectangle(x, y, 80, 80);
+        //return Bodies.rectangle(x, y, 80, 80);
+        return CrateManager.createCrate(x, y)
       });
   World.add(engine.world, [composite]);
 
-  for(let box of Composite.allBodies(composite)){
-    boxes.push(box);
-    colors.push(color(random(0, 50), random(128, 255), random(0, 50)));
-  }
+  // for(let box of Composite.allBodies(composite)){
+  //   boxes.push(box);
+  //   colors.push(color(random(0, 50), random(128, 255), random(0, 50)));
+  // }
 }
 ////////////////////////////////////////////////////////////////
 //draws tower of boxes
 function drawTower(){
-  push();
   //your code here
-
-  for(let i = 0; i < boxes.length; i++){
-    fill(colors[i]);
-
-    drawVertices(boxes[i].vertices);
-  }
-  pop();
+  CrateManager.draw();
+  // push();
+  // //your code here
+  //
+  // for(let i = 0; i < boxes.length; i++){
+  //   fill(colors[i]);
+  //
+  //   drawVertices(boxes[i].vertices);
+  // }
+  // pop();
 }
 ////////////////////////////////////////////////////////////////
 function setupSlingshot(){
