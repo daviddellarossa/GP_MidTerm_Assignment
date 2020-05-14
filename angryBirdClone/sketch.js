@@ -23,6 +23,18 @@ var angle=0;
 var angleSpeed=0;
 var canvas;
 ////////////////////////////////////////////////////////////
+
+function preload(){
+  TextureHandler.propellerImg = loadImage('assets/propeller_200x25.png');
+
+  TextureHandler.cratesImg.push(loadImage('assets/crate0_80.png'));
+  TextureHandler.cratesImg.push(loadImage('assets/crate0_80_rot.png'));
+  TextureHandler.cratesImg.push(loadImage('assets/crate1_80.png'));
+  TextureHandler.cratesImg.push(loadImage('assets/crate1_80_rot.png'));
+
+}
+
+
 function setup() {
   canvas = createCanvas(1000, 600);
 

@@ -16,20 +16,24 @@ function drawGround(){
 ////////////////////////////////////////////////////////////////
 function setupPropeller(){
   // your code here
-  propeller = Bodies.rectangle(150, 480, 200,15, {isStatic:true, angle:angle});
-  World.add(engine.world, [propeller]);
+  propeller = new Propeller(
+      createVector(150, 480),
+      {width: 200, height: 24},
+      angle,
+      TextureHandler.propellerImg,
+  );
+  //propeller = Bodies.rectangle(150, 480, 200,24, {isStatic:true, angle:angle});
+  World.add(engine.world, [propeller.body]);
 }
 ////////////////////////////////////////////////////////////////
 //updates and draws the propeller
 function drawPropeller(){
-  push();
   // your code here
   angle += angleSpeed;
-  Body.setAngle(propeller, angle);
-  Body.setAngularVelocity(propeller, angleSpeed);
+  Body.setAngle(propeller.body, angle);
+  Body.setAngularVelocity(propeller.body, angleSpeed);
 
-  drawVertices(propeller.vertices);
-  pop();
+  propeller.draw();
 }
 ////////////////////////////////////////////////////////////////
 function setupBird(){
@@ -85,6 +89,7 @@ function drawTower(){
 
   for(let i = 0; i < boxes.length; i++){
     fill(colors[i]);
+
     drawVertices(boxes[i].vertices);
   }
   pop();
