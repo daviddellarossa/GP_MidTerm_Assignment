@@ -22,6 +22,8 @@ var slingshotBird, slingshotConstraint;
 var angle=0;
 var angleSpeed=0;
 var canvas;
+var crateManager;
+
 ////////////////////////////////////////////////////////////
 
 function preload(){
@@ -48,7 +50,8 @@ function setup() {
 }
 ////////////////////////////////////////////////////////////
 function draw() {
-  background(0);
+
+  drawBackground();
 
   Engine.update(engine);
 

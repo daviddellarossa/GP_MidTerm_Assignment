@@ -7281,7 +7281,7 @@ module.exports = Bounds;
     /**
      * Creates a new axis-aligned bounding box (AABB) for the given vertices.
      * @method create
-     * @param {vertices} vertices
+     * @param {vertices} bodyvertices
      * @return {bounds} A new bounds object
      */
     Bounds.create = function(vertices) {

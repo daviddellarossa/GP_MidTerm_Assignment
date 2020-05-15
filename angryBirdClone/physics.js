@@ -1,3 +1,17 @@
+function drawBackground(){
+  background(135, 206, 235);
+
+  image(
+      TextureHandler.background,
+      0,
+      74,
+      1000,
+      506
+  );
+}
+
+
+
 ////////////////////////////////////////////////////////////////
 function setupGround(){
   ground = Bodies.rectangle(500, 600, 1000, 40, {
@@ -9,7 +23,8 @@ function setupGround(){
 ////////////////////////////////////////////////////////////////
 function drawGround(){
   push();
-  fill(128);
+  noStroke();
+  fill(19, 64, 18);
   drawVertices(ground.vertices);
   pop();
 }
@@ -64,18 +79,19 @@ function drawBirds(){
 //creates a tower of boxes
 function setupTower(){
   //you code here
-  let composite = Composites.stack(
-      600,
-      100,
-      3,
-      6,
-      0,
-      0,
-      (x, y) => {
-        //return Bodies.rectangle(x, y, 80, 80);
-        return CrateManager.createCrate(x, y)
-      });
-  World.add(engine.world, [composite]);
+  // let composite = Composites.stack(
+  //     600,
+  //     100,
+  //     3,
+  //     6,
+  //     0,
+  //     0,
+  //     (x, y) => {
+  //       //return Bodies.rectangle(x, y, 80, 80);
+  //       return CrateManager.createCrate(x, y)
+  //     });
+  crateManager = new CrateManager();
+  World.add(engine.world, [crateManager.composite]);
 
   // for(let box of Composite.allBodies(composite)){
   //   boxes.push(box);
@@ -86,16 +102,7 @@ function setupTower(){
 //draws tower of boxes
 function drawTower(){
   //your code here
-  CrateManager.draw();
-  // push();
-  // //your code here
-  //
-  // for(let i = 0; i < boxes.length; i++){
-  //   fill(colors[i]);
-  //
-  //   drawVertices(boxes[i].vertices);
-  // }
-  // pop();
+  crateManager.draw();
 }
 ////////////////////////////////////////////////////////////////
 function setupSlingshot(){
@@ -103,7 +110,6 @@ function setupSlingshot(){
   slingshotBird = Bodies.circle(200, 200, 20, {friction:0, restitution:0.95});
   Body.setMass(slingshotBird, 10*slingshotBird.mass);
   World.add(engine.world, [slingshotBird]);
-  //birds.push(slingshotBird);
 
   slingshotConstraint = Constraint.create({
   pointA: {x:200, y:200},
