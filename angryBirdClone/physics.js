@@ -96,6 +96,13 @@ function setupSlingshot(){
 //   slingshotBird = Bodies.circle(200, 200, 20, {friction:0, restitution:0.95});
 //   Body.setMass(slingshotBird, 10*slingshotBird.mass);
 
+  slingshot = new Slingshot(
+      createVector(200, 200),
+      {width:60, height: 150},
+      0,
+      TextureHandler.slingshotImg
+  );
+
   slingshotBird = BirdManager.createBird(200, 200);
   World.add(engine.world, [slingshotBird]);
 
@@ -106,6 +113,7 @@ function setupSlingshot(){
     damping: 0.0001
   });
   World.add(engine.world, [slingshotConstraint]);
+
 }
 ////////////////////////////////////////////////////////////////
 //draws slingshot bird and its constraint
@@ -113,9 +121,8 @@ function drawSlingshot(){
   push();
   // your code here
   fill(255, 150, 0);
-  // drawVertices(slingshotBird.vertices);
   drawConstraint(slingshotConstraint)
-
+  slingshot.draw();
 
   pop();
 }

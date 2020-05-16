@@ -3,9 +3,9 @@ class GameObject{
     image;
     body;
     constructor(location, size, angle, image, bodyConstructor){
-        this.location = location;
+        //this.location = location;
         this.size = size;
-        this.angle = angle
+        //this.angle = angle
         this.image = image;
         this.body = bodyConstructor();
     }

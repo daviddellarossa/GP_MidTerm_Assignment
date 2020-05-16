@@ -2,6 +2,7 @@
 class _TextureHandler{
     background;
     propellerImg;
+    slingshotImg;
     cratesImg = [];
     birdsImg = [];
     constructor() {
@@ -11,6 +12,8 @@ class _TextureHandler{
         this.background = loadImage('assets/background_1000.png');
 
         this.propellerImg = loadImage('assets/propeller_200x25.png');
+
+        this.slingshotImg = loadImage('assets/slingshot.png');
 
         this.cratesImg.push(loadImage('assets/crate0_80.png'));
         this.cratesImg.push(loadImage('assets/crate0_80_rot.png'));

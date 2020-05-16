@@ -23,7 +23,7 @@ var angle=0;
 var angleSpeed=0;
 var canvas;
 var crateManager;
-var birdManager;
+var slingshot;
 
 ////////////////////////////////////////////////////////////
 

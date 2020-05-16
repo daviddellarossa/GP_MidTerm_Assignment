@@ -10,7 +10,7 @@ class Bird extends GameObject{
                     location.x,
                     location.y,
                     size.width / 2,
-                    {friction: 0, restitution: 0.95 });
+                    {friction: 0, restitution: 0.95, inertia: Infinity });
                 Matter.Body.setMass(body, body.mass*10);
                 return body;
             }
@@ -18,9 +18,7 @@ class Bird extends GameObject{
     }
 
     draw() {
-        // drawVertices(this.body.vertices);
         super.draw();
-        fill(255, 0, 0);
 
     }
 }
