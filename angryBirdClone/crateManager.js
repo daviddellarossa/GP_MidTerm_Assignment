@@ -13,6 +13,7 @@ class CrateManager{
             (x, y) => {
                 return this.createCrate(x, y)
             });
+        World.add(engine.world, [this.composite]);
     }
     createCrate(x, y){
         let crate = new Crate(

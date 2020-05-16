@@ -26,6 +26,10 @@ class Slingshot extends GameObject{
         push();
         translate(this.location.x, this.location.y);
         rotate(this.angle);
+
+        stroke(84,39,15);
+        strokeWeight(8);
+
         image(
             this.image,
             -this.size.width/2,
@@ -33,45 +37,8 @@ class Slingshot extends GameObject{
             this.size.width,
             this.size.height
         );
+
         pop();
     }
 }
 
-class SlingshotManager{
-    location;
-    size;
-    angle;
-    image;
-    slingshot;
-    bird;
-    constructor(location) {
-        this.location = location;
-        this.size = {width:60, height: 150};
-        this.angle = 0;
-        this.image = TextureHandler.slingshotImg;
-        this.bird = BirdManager.createBird(200, 200);
-        this.slingshot = new Slingshot(
-            createVector(location.x, location.y),
-            {width:60, height: 150},
-            0,
-            TextureHandler.slingshotImg,
-            this.bird.body
-        );
-    }
-
-    draw(){
-        this.slingshot.draw();
-    }
-
-    releaseConstraint(){
-        this.slingshot.body.bodyB = null;
-        this.slingshot.body.pointA = { x: 0, y: 0 };
-    }
-
-    reset(){
-        BirdManager.destroyBird(this.bird);
-        this.bird = BirdManager.createBird(this.location.x, this.location.y);
-        this.slingshot.body.bodyB = this.bird.body;
-        this.slingshot.body.pointA = { x: this.location.x, y: this.location.y};
-    }
-}

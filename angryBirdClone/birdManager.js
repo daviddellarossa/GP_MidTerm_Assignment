@@ -3,14 +3,19 @@ class _BirdManager{
     constructor() {
     }
 
-    createBird(x, y){
+    createBird(x, y, addToBirdCollection = true, addToWorld = true){
         let bird = new Bird(
             createVector(x, y),
             {width: 50, height: 50},
             0,
             TextureHandler.birdsImg[Math.floor(random(TextureHandler.birdsImg.length))]
         );
-        this.birds.push(bird);
+        if(addToBirdCollection){
+            this.birds.push(bird);
+        }
+        if(addToWorld){
+            World.add(engine.world, [bird.body]);
+        }
         return bird;
     }
 
@@ -20,12 +25,17 @@ class _BirdManager{
         }
     }
 
-    destroyBird(bird){
-        for(let i = 0; i < this.birds.length; i++){
-            if(bird.body.id === this.birds[i].body.id){
-                this.birds.splice(i, 1);
-                return;
+    destroyBird(bird, removeFromBirdCollection = true, removeFromWorld = true){
+        if(removeFromBirdCollection){
+            for(let i = 0; i < this.birds.length; i++){
+                if(bird.body.id === this.birds[i].body.id){
+                    this.birds.splice(i, 1);
+                    return;
+                }
             }
+        }
+        if(removeFromWorld){
+            World.remove(engine.world, bird.body);
         }
     }
 }

@@ -52,7 +52,6 @@ function drawPropeller(){
 ////////////////////////////////////////////////////////////////
 function setupBird(){
   BirdManager.createBird(mouseX, mouseY);
-  // World.add(engine.world, [bird.body]);
 }
 ////////////////////////////////////////////////////////////////
 function drawBirds(){
@@ -63,7 +62,7 @@ function drawBirds(){
 function setupTower(){
   //you code here
   crateManager = new CrateManager();
-  World.add(engine.world, [crateManager.composite]);
+
 }
 ////////////////////////////////////////////////////////////////
 //draws tower of boxes

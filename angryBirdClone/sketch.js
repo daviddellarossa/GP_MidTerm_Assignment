@@ -63,9 +63,10 @@ function draw() {
 
   drawTower();
 
+  drawSlingshot();
+
   drawBirds();
 
-  drawSlingshot();
   circle(300, 580, 2);
 }
 ////////////////////////////////////////////////////////////
