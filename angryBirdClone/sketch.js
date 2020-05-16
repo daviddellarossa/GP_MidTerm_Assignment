@@ -23,6 +23,7 @@ var angle=0;
 var angleSpeed=0;
 var canvas;
 var crateManager;
+var birdManager;
 
 ////////////////////////////////////////////////////////////
 
@@ -90,7 +91,8 @@ function keyTyped(){
 
   //if 'r' reset the slingshot
   if (key==='r'){
-    removeFromWorld(slingshotBird);
+    BirdManager.destroyBird(slingshotBird)
+    // removeFromWorld(slingshotBird);
     removeFromWorld(slingshotConstraint);
     setupSlingshot();
   }

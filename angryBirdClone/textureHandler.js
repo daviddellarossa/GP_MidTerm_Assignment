@@ -3,6 +3,7 @@ class _TextureHandler{
     background;
     propellerImg;
     cratesImg = [];
+    birdsImg = [];
     constructor() {
 
     }
@@ -19,6 +20,12 @@ class _TextureHandler{
         this.cratesImg.push(loadImage('assets/crate3_80_rot.png'));
         this.cratesImg.push(loadImage('assets/crate4_80.png'));
         this.cratesImg.push(loadImage('assets/crate4_80_rot.png'));
+
+        this.birdsImg.push(loadImage('assets/bird0.png'));
+        this.birdsImg.push(loadImage('assets/bird1.png'));
+        this.birdsImg.push(loadImage('assets/bird2.png'));
+        this.birdsImg.push(loadImage('assets/bird4.png'));
+        this.birdsImg.push(loadImage('assets/bird5.png'));
 
     }
 }

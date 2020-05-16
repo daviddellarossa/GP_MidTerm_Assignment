@@ -37,7 +37,6 @@ function setupPropeller(){
       angle,
       TextureHandler.propellerImg,
   );
-  //propeller = Bodies.rectangle(150, 480, 200,24, {isStatic:true, angle:angle});
   World.add(engine.world, [propeller.body]);
 }
 ////////////////////////////////////////////////////////////////
@@ -52,51 +51,38 @@ function drawPropeller(){
 }
 ////////////////////////////////////////////////////////////////
 function setupBird(){
-  var bird = Bodies.circle(mouseX, mouseY, 20, {friction: 0,
-      restitution: 0.95 });
-  Matter.Body.setMass(bird, bird.mass*10);
+  // var bird = Bodies.circle(mouseX, mouseY, 20, {friction: 0,
+  //     restitution: 0.95 });
+  // Matter.Body.setMass(bird, bird.mass*10);
+
+  var bird = BirdManager.createBird(mouseX, mouseY);
   World.add(engine.world, [bird]);
-  birds.push(bird);
+  // birds.push(bird);
 }
 ////////////////////////////////////////////////////////////////
 function drawBirds(){
-  push();
+  // push();
   //your code here
-  fill(255, 0,0);
-  for(let i = 0; i < birds.length; i++){
-    if(isOffScreen(birds[i])){
-      World.remove(engine.world, birds[i]);
-      birds.splice(i, 1);
-      i--;
-      continue;
-    }
-    drawVertices(birds[i].vertices);
-  }
+  // fill(255, 0,0);
+  // for(let i = 0; i < birds.length; i++){
+  //   if(isOffScreen(birds[i])){
+  //     World.remove(engine.world, birds[i]);
+  //     birds.splice(i, 1);
+  //     i--;
+  //     continue;
+  //   }
+  //   drawVertices(birds[i].vertices);
+  // }
 
-  pop();
+  // pop();
+  BirdManager.draw();
 }
 ////////////////////////////////////////////////////////////////
 //creates a tower of boxes
 function setupTower(){
   //you code here
-  // let composite = Composites.stack(
-  //     600,
-  //     100,
-  //     3,
-  //     6,
-  //     0,
-  //     0,
-  //     (x, y) => {
-  //       //return Bodies.rectangle(x, y, 80, 80);
-  //       return CrateManager.createCrate(x, y)
-  //     });
   crateManager = new CrateManager();
   World.add(engine.world, [crateManager.composite]);
-
-  // for(let box of Composite.allBodies(composite)){
-  //   boxes.push(box);
-  //   colors.push(color(random(0, 50), random(128, 255), random(0, 50)));
-  // }
 }
 ////////////////////////////////////////////////////////////////
 //draws tower of boxes
@@ -107,8 +93,10 @@ function drawTower(){
 ////////////////////////////////////////////////////////////////
 function setupSlingshot(){
 //your code here
-  slingshotBird = Bodies.circle(200, 200, 20, {friction:0, restitution:0.95});
-  Body.setMass(slingshotBird, 10*slingshotBird.mass);
+//   slingshotBird = Bodies.circle(200, 200, 20, {friction:0, restitution:0.95});
+//   Body.setMass(slingshotBird, 10*slingshotBird.mass);
+
+  slingshotBird = BirdManager.createBird(200, 200);
   World.add(engine.world, [slingshotBird]);
 
   slingshotConstraint = Constraint.create({
@@ -125,7 +113,7 @@ function drawSlingshot(){
   push();
   // your code here
   fill(255, 150, 0);
-  drawVertices(slingshotBird.vertices);
+  // drawVertices(slingshotBird.vertices);
   drawConstraint(slingshotConstraint)
 
 

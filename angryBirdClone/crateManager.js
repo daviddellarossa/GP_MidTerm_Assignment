@@ -22,7 +22,7 @@ class CrateManager{
             {width: this.size.width, height: this.size.height},
             0,
             TextureHandler.cratesImg[Math.floor(random(TextureHandler.cratesImg.length))]
-        )
+        );
         this.crates.push(crate);
         return crate.body;
     }
