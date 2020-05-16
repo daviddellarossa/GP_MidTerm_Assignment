@@ -24,6 +24,7 @@ var angleSpeed=0;
 var canvas;
 var crateManager;
 var slingshot;
+var slingshotManager;
 
 ////////////////////////////////////////////////////////////
 
@@ -91,10 +92,11 @@ function keyTyped(){
 
   //if 'r' reset the slingshot
   if (key==='r'){
-    BirdManager.destroyBird(slingshotBird)
+    slingshotManager.reset();
+    // BirdManager.destroyBird(slingshotBird)
     // removeFromWorld(slingshotBird);
-    removeFromWorld(slingshotConstraint);
-    setupSlingshot();
+    // removeFromWorld(slingshotConstraint);
+    // setupSlingshot();
   }
 }
 
@@ -106,8 +108,7 @@ function keyTyped(){
 //slingshot bird can fly off
 function mouseReleased(){
   setTimeout(() => {
-    slingshotConstraint.bodyB = null;
-    slingshotConstraint.pointA = { x: 0, y: 0 };
+    slingshotManager.releaseConstraint();
   }, 100);
 }
 ////////////////////////////////////////////////////////////

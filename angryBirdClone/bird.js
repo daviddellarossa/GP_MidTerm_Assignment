@@ -12,6 +12,7 @@ class Bird extends GameObject{
                     size.width / 2,
                     {friction: 0, restitution: 0.95, inertia: Infinity });
                 Matter.Body.setMass(body, body.mass*10);
+                World.add(engine.world, [body]);
                 return body;
             }
         );

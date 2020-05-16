@@ -51,30 +51,11 @@ function drawPropeller(){
 }
 ////////////////////////////////////////////////////////////////
 function setupBird(){
-  // var bird = Bodies.circle(mouseX, mouseY, 20, {friction: 0,
-  //     restitution: 0.95 });
-  // Matter.Body.setMass(bird, bird.mass*10);
-
-  var bird = BirdManager.createBird(mouseX, mouseY);
-  World.add(engine.world, [bird]);
-  // birds.push(bird);
+  BirdManager.createBird(mouseX, mouseY);
+  // World.add(engine.world, [bird.body]);
 }
 ////////////////////////////////////////////////////////////////
 function drawBirds(){
-  // push();
-  //your code here
-  // fill(255, 0,0);
-  // for(let i = 0; i < birds.length; i++){
-  //   if(isOffScreen(birds[i])){
-  //     World.remove(engine.world, birds[i]);
-  //     birds.splice(i, 1);
-  //     i--;
-  //     continue;
-  //   }
-  //   drawVertices(birds[i].vertices);
-  // }
-
-  // pop();
   BirdManager.draw();
 }
 ////////////////////////////////////////////////////////////////
@@ -93,37 +74,13 @@ function drawTower(){
 ////////////////////////////////////////////////////////////////
 function setupSlingshot(){
 //your code here
-//   slingshotBird = Bodies.circle(200, 200, 20, {friction:0, restitution:0.95});
-//   Body.setMass(slingshotBird, 10*slingshotBird.mass);
-
-  slingshot = new Slingshot(
-      createVector(200, 200),
-      {width:60, height: 150},
-      0,
-      TextureHandler.slingshotImg
-  );
-
-  slingshotBird = BirdManager.createBird(200, 200);
-  World.add(engine.world, [slingshotBird]);
-
-  slingshotConstraint = Constraint.create({
-  pointA: {x:200, y:200},
-    bodyB: slingshotBird,
-    stiffness: 0.01,
-    damping: 0.0001
-  });
-  World.add(engine.world, [slingshotConstraint]);
-
+  slingshotManager = new SlingshotManager(createVector(200, 200));
 }
 ////////////////////////////////////////////////////////////////
 //draws slingshot bird and its constraint
 function drawSlingshot(){
   push();
-  // your code here
-  fill(255, 150, 0);
-  drawConstraint(slingshotConstraint)
-  slingshot.draw();
-
+    slingshotManager.draw();
   pop();
 }
 /////////////////////////////////////////////////////////////////

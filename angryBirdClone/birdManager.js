@@ -11,7 +11,7 @@ class _BirdManager{
             TextureHandler.birdsImg[Math.floor(random(TextureHandler.birdsImg.length))]
         );
         this.birds.push(bird);
-        return bird.body;
+        return bird;
     }
 
     draw(){
@@ -22,11 +22,10 @@ class _BirdManager{
 
     destroyBird(bird){
         for(let i = 0; i < this.birds.length; i++){
-            if(bird.id === this.birds[i].body.id){
+            if(bird.body.id === this.birds[i].body.id){
                 this.birds.splice(i, 1);
                 return;
             }
-
         }
     }
 }
