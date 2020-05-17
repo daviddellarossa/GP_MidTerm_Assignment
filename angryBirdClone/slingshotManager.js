@@ -1,11 +1,24 @@
+/**
+ * CrateManager is a Factory of the Slingshot system (slingshot + bird).
+ */
 class SlingshotManager {
+    /** location of the slingshot */
     location;
+    /** size of the slingshot */
     size;
+    /** angle of the slingshot */
     angle;
+    /** image used for the slingshot */
     image;
+    /** Instance of Slingshot */
     slingshot;
+    /** Instance of Bird */
     bird;
 
+    /**
+     * Create a new instance of SlingshotManager
+     * @param location - location where the Slingshot is drawn on the screen
+     */
     constructor(location) {
         this.location = location;
         this.size = {width: 60, height: 150};
@@ -21,6 +34,7 @@ class SlingshotManager {
         );
     }
 
+    /** draw the slingshot system */
     draw() {
         push();
         translate(this.location.x, this.location.y);
@@ -41,6 +55,8 @@ class SlingshotManager {
             line(-14, 24, 20, 18);
         }
 
+        //The next push-translate-pop is needed because the bird translates to its origin starting from the current
+        //position, which is the slingshot position, not the (0,0) as the bird expects. So, translate back to origin.
         push()
         translate(-this.location.x, -this.location.y);
         this.bird.draw();
@@ -66,15 +82,16 @@ class SlingshotManager {
         pop();
     }
 
+    /** Release the constraint. Triggered by mouseReleased */
     releaseConstraint() {
         this.slingshot.body.bodyB = null;
         this.slingshot.body.pointA = {x: 0, y: 0};
     }
 
+    /** Reset the constraint */
     reset() {
         BirdManager.destroyBird(this.bird, false, true);
         this.bird = BirdManager.createBird(this.location.x, this.location.y, false, true);
-        ;
         this.slingshot.body.bodyB = this.bird.body;
         this.slingshot.body.pointA = {x: this.location.x, y: this.location.y};
     }

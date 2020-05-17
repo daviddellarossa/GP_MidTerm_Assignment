@@ -1,4 +1,15 @@
+/**
+ * Class modeling a bird
+ * @extends {GameObject}
+ */
 class Bird extends GameObject{
+    /**
+     * Create an instance of Bird
+     * @param location - location of the object in screen coordinates
+     * @param size - size of the object
+     * @param angle - angle of the object
+     * @param image - image used to draw the object
+     */
     constructor(location, size, angle, image){
         super(
             location,

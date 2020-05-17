@@ -1,13 +1,26 @@
-
+/**
+ * TextureHandler - Repository of images used for rendering
+ */
 class _TextureHandler{
+    /** image for background */
     background;
+    /** image for propeller */
     propellerImg;
+    /** image for slingshot */
     slingshotImg;
+    /** collection of images for crates */
     cratesImg = [];
+    /** collection of images for birds */
     birdsImg = [];
+
+    /**
+     * Create an instance of _TextureHandler
+     */
     constructor() {
 
     }
+
+    /** Load images from the disk into memory */
     init(){
         this.background = loadImage('assets/background_1000.png');
 
@@ -33,5 +46,5 @@ class _TextureHandler{
     }
 }
 
-
+/** Instance of _TextureHandler, used as a singleton */
 const TextureHandler = new _TextureHandler();

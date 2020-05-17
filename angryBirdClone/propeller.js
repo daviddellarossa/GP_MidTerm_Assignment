@@ -1,3 +1,7 @@
+/**
+ * Class modeling a propeller
+ * @extends {GameObject}
+ */
 class Propeller extends GameObject{
     constructor(location, size, angle, image) {
         super(

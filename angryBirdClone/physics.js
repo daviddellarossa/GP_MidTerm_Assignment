@@ -10,8 +10,6 @@ function drawBackground(){
   );
 }
 
-
-
 ////////////////////////////////////////////////////////////////
 function setupGround(){
   ground = Bodies.rectangle(500, 600, 1000, 40, {
@@ -62,7 +60,6 @@ function drawBirds(){
 function setupTower(){
   //you code here
   crateManager = new CrateManager();
-
 }
 ////////////////////////////////////////////////////////////////
 //draws tower of boxes

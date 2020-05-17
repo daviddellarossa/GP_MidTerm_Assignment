@@ -15,15 +15,12 @@ var Composite = Matter.Composite;
 var engine;
 var propeller;
 var boxes = [];
-var birds = [];
 var colors = [];
 var ground;
-var slingshotBird, slingshotConstraint;
 var angle=0;
 var angleSpeed=0;
 var canvas;
 var crateManager;
-var slingshot;
 var slingshotManager;
 
 ////////////////////////////////////////////////////////////
@@ -37,8 +34,6 @@ function setup() {
   canvas = createCanvas(1000, 600);
 
   engine = Engine.create();  // create an engine
-
-  // rectMode(CENTER);
 
   setupGround();
 
@@ -86,18 +81,9 @@ function keyPressed(){
 }
 ////////////////////////////////////////////////////////////
 function keyTyped(){
-  //if 'b' create a new bird to use with propeller
-  // if (key==='b'){
-  //   setupBird();
-  // }
-
   //if 'r' reset the slingshot
   if (key==='r'){
     slingshotManager.reset();
-    // BirdManager.destroyBird(slingshotBird)
-    // removeFromWorld(slingshotBird);
-    // removeFromWorld(slingshotConstraint);
-    // setupSlingshot();
   }
 }
 
@@ -132,25 +118,4 @@ function drawVertices(vertices) {
   endShape(CLOSE);
 }
 ////////////////////////////////////////////////////////////
-function drawConstraint(constraint) {
-  push();
-  var offsetA = constraint.pointA;
-  var posA = {x:0, y:0};
-  if (constraint.bodyA) {
-    posA = constraint.bodyA.position;
-  }
-  var offsetB = constraint.pointB;
-  var posB = {x:0, y:0};
-  if (constraint.bodyB) {
-    posB = constraint.bodyB.position;
-  }
-  strokeWeight(5);
-  stroke(255);
-  line(
-    posA.x + offsetA.x,
-    posA.y + offsetA.y,
-    posB.x + offsetB.x,
-    posB.y + offsetB.y
-  );
-  pop();
-}
+
