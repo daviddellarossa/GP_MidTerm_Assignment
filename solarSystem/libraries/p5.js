@@ -1105,7 +1105,7 @@ function parseBuffer(buffer) {
 // with two arguments `(err, font)`. The `err` will be null on success,
 // the `font` is a Font object.
 //
-// We use the node.js callback convention so that
+// We use the gridNode.js callback convention so that
 // opentype.js can integrate with frameworks like async.js.
 function load(url, callback) {
     var isNode = typeof window === 'undefined';
