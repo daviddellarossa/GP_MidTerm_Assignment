@@ -1,16 +1,34 @@
 class Grid{
     gridArray = [];
-    position;
+    /** Position of the grid respect to its container */
+    position; //
+    /** Number of rows */
     rows;
+    /** Number of columns */
     columns;
+    /** Size of each element in the grid */
     stepSize;
-    nXFactor = 0.01;
-    nYFactor = 0.01;
+    /** Scaling factor for the noise X-axis */
+    nXFactor = 0.1;
+    /** Scaling factor for the noise Y-axis */
+    nYFactor = 0.1;
+    /** Scaling factor for the noise Z-axis */
     nZFactor = 0.005;
+    /** Time t = 0.
+     * Used in the calculation of the scaling parameters in order to make the transition smooth while moving the mouse
+     * */
     t0 = 0; // t=0
+    /** Initial space at t = 0.
+     * Used in the calculation of the scaling parameters in order to make the transition smooth while moving the mouse
+     * */
     sa0 = 0;
+    /** Speed at instant a. See below for more details.
+     * Used in the calculation of the scaling parameters in order to make the transition smooth while moving the mouse
+     * */
     va = 1; //speed at instant a
+    /** Minimum value for mouse-controlled speed */
     minSpeed = 1;
+    /** Maximum value for mouse-controlled speed */
     maxSpeed = 10;
 
     constructor(position, rows, columns, stepSize){
@@ -19,9 +37,9 @@ class Grid{
         this.columns = columns;
         this.stepSize = stepSize;
 
-        for(let i = 0; i < this.rows; i++){
-            let row = [];
-            for(let j = 0; j < this.columns; j++){
+        for(let i = 0; i < this.columns; i++){
+            let column = [];
+            for(let j = 0; j < this.rows; j++){
                 let nodePosition = p5.Vector.add(
                     this.position,
                     createVector(
@@ -29,13 +47,13 @@ class Grid{
                         Math.floor(j * this.stepSize)
                     )
                 );
-                row.push(new GridNode(nodePosition, this.stepSize, this.stepSize));
+                column.push(new GridNode(nodePosition, this.stepSize, this.stepSize));
             }
-            this.gridArray.push(row);
+            this.gridArray.push(column);
         }
     }
 
-    draw(){
+    drawColorGrid(){
         // stroke(0);
         noStroke();
         //Transformation to make the color transition smooth when mouse position changes
@@ -59,14 +77,22 @@ class Grid{
 
         // console.log(`sa:${this.sa0  + this.va * this.t0}; sb:${sb}`);
 
-        for(let i = 0; i < this.rows; i++){
-            for(let j = 0; j < this.columns; j++) {
+        for(let i = 0; i < this.columns; i++){
+            for(let j = 0; j < this.rows; j++) {
                 let n = noise(i * this.nXFactor, j * this.nYFactor, sb);
-                this.gridArray[i][j].draw(lerpColor(color(255, 0, 0), color(0, 0, 255), n));
+                this.gridArray[i][j].drawColorGrid(n);
             }
         }
         this.t0 = t1; // saving the current initial time
         this.va = vb; // saving the current speed
         this.sa0 = sb0; //saving the current start position
+    }
+
+    drawCompassGrid(){
+        for(let i = 0; i < this.columns; i++) {
+            for (let j = 0; j < this.rows; j++) {
+                this.gridArray[i][j].drawCompassGrid();
+            }
+        }
     }
 }

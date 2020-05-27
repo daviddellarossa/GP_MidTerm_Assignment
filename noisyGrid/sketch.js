@@ -3,7 +3,6 @@ let grid;
 
 function setup() {
   createCanvas(500, 500);
-
   grid = new Grid(createVector(0, 0), 25, 25, stepSize)
 }
 ///////////////////////////////////////////////////////////////////////
@@ -16,9 +15,10 @@ function draw() {
 ///////////////////////////////////////////////////////////////////////
 function colorGrid(){
   // your code here
-  grid.draw();
+  grid.drawColorGrid();
 }
 ///////////////////////////////////////////////////////////////////////
 function compassGrid(){
   // your code here
+  grid.drawCompassGrid();
 }
