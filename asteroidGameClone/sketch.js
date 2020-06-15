@@ -1,7 +1,10 @@
+//All the graphic assets are released under the Creative Commons licence
 //https://opengameart.org/content/space-ship-construction-kit
 //https://opengameart.org/content/space-game-art-pack-extended
 //https://opengameart.org/content/2d-explosion-animations-2-frame-by-frame
 //https://evolutionnews.org/wp-content/uploads/2020/04/Rare-Earth-2.jpg
+
+//Author: David Della Rossa
 
 var spaceship;
 var asteroids;

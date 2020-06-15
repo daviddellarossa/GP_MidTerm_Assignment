@@ -1,3 +1,5 @@
+//Author: David Della Rossa
+
 var speed;
 
 function setup() {

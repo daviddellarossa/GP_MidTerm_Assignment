@@ -1,3 +1,5 @@
+//Author: David Della Rossa
+
 let stepSize = 20;
 let grid;
 
